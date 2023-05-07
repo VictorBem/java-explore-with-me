@@ -1,9 +1,12 @@
-package ru.practicum.explorewithme.statisticservice;
+package ru.practicum.explorewithme.statisticservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.explorewithme.statisticservice.StatisticDto;
+import ru.practicum.explorewithme.statisticservice.StatisticResponseDto;
+import ru.practicum.explorewithme.statisticservice.service.StatisticService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,7 +29,6 @@ public class StatisticController {
 
     //Сохранение информации об использовании сервиса
     @PostMapping("/hit")
-    @ResponseStatus(HttpStatus.CREATED)
     private StatisticDto addHit(@Valid @RequestBody StatisticDto statisticDto) {
         log.info("Save statistic for service {}, uri {}, ip {}, timestamp {}",
                 statisticDto.getApp(), statisticDto.getUri(), statisticDto.getIp(), statisticDto.getTimestamp());

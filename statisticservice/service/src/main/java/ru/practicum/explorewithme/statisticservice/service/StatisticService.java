@@ -1,8 +1,11 @@
-package ru.practicum.explorewithme.statisticservice;
+package ru.practicum.explorewithme.statisticservice.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.practicum.explorewithme.statisticservice.*;
+import ru.practicum.explorewithme.statisticservice.exception.BadRequestException;
+import ru.practicum.explorewithme.statisticservice.repository.StatisticRepository;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -31,6 +34,11 @@ public class StatisticService {
 
         LocalDateTime endDate = LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8),
                                                     DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
+
+        if (startDate.isAfter(endDate)) {
+            log.info("Дата начала периода {} не может быть после даты окончания периода {}", startDate, endDate);
+            throw new BadRequestException("Дата начала периода " + startDate + " не может быть после даты окончания периода " + endDate);
+        }
 
         if (uris == null && !unique) {
             return statisticRepository.getStatisticsSummary(startDate, endDate);
