@@ -15,18 +15,6 @@ public class StatisticController {
     private final StatisticService statisticService;
 
     //Получение статистики запросов к сервису
-    /*@GetMapping("/stats1")
-    private List<StatisticResponseDto> getStatistics1(@RequestParam(value = "start", required = true)
-                                                     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
-                                                     @RequestParam(value = "end", required = true)
-                                                     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
-                                                     @RequestParam(value = "uris", required = false, defaultValue = "null") List<String> uris,
-                                                     @RequestParam(value = "unique", required = false, defaultValue = "false") boolean unique) {
-        log.info("Get statistic start {}, end {}, uris {}, unique {} ", start, end, uris, unique);
-        return statisticService.getStatistics(start, end, uris, unique);
-    }*/
-
-    //Получение статистики запросов к сервису
     @GetMapping("/stats")
     private List<StatisticResponseDto> getStatistics(@RequestParam(value = "start", required = true) String start,
                                                      @RequestParam(value = "end", required = true) String end,

@@ -1,8 +1,6 @@
 package ru.practicum.explorewithme.statisticservice;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import ru.practicum.explorewithme.statisticservice.Statistic;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

@@ -19,9 +19,11 @@ import java.util.Map;
 @Slf4j
 public class StatisticClient extends BaseClient {
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    @Value("${explore-with-me-server.url}")
+    private static String serverUrl;
 
     @Autowired
-    public StatisticClient(@Value("${explore-with-me-server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public StatisticClient(RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
