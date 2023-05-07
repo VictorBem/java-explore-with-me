@@ -15,14 +15,14 @@ public class ErrorHandler {
 
     @ExceptionHandler({NoSuchElementException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse ErrorResponseNotFound(RuntimeException e) {
+    public ErrorResponse errorResponseNotFound(RuntimeException e) {
         log.error("Ошибка: " + e.getMessage());
         return new ErrorResponse("Ошибка.", e.getMessage());
     }
 
     @ExceptionHandler({BadRequestException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse ErrorResponseValidation(RuntimeException e) {
+    public ErrorResponse errorResponseValidation(RuntimeException e) {
         log.error("Ошибка: " + e.getMessage());
         return new ErrorResponse("Ошибка.", e.getMessage());
     }
