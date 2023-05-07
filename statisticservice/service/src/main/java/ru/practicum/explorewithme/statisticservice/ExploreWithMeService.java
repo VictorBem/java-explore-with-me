@@ -10,6 +10,7 @@ import java.util.Collections;
 public class ExploreWithMeService {
     @Value("${server.port}")
     private static int port;
+
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(ExploreWithMeService.class);
         app.setDefaultProperties(Collections

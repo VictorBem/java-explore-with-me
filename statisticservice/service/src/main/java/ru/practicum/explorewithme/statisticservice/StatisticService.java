@@ -34,7 +34,7 @@ public class StatisticService {
 
         if (uris == null && !unique) {
             return statisticRepository.getStatisticsSummary(startDate, endDate);
-        } else if(uris == null) {
+        } else if (uris == null) {
             return statisticRepository.getStatisticsSummaryUniqueIp(startDate, endDate);
         } else if (!unique) {
             return statisticRepository.getStatisticsSummary(startDate, endDate, uris);
