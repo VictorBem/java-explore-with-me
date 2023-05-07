@@ -11,7 +11,6 @@ public class ExploreWithMeService {
     @Value("${server.port}")
     private static int port;
     public static void main(String[] args) {
-        //SpringApplication.run(ShareItServer.class, args);
         SpringApplication app = new SpringApplication(ExploreWithMeService.class);
         app.setDefaultProperties(Collections
                 .singletonMap("server.port", port));

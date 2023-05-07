@@ -4,18 +4,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class StatisticService {
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private final StatisticRepository statisticRepository;
 
     //Сохранение данных об использовании сервиса
@@ -25,15 +24,22 @@ public class StatisticService {
     }
 
     //Получение информации по статистике
-    public List<StatisticResponseDto> getStatistics(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
+    public List<StatisticResponseDto> getStatistics(String start, String end, List<String> uris, boolean unique) {
+        //Декодируем даты старта и окончания периода для статистики
+        LocalDateTime startDate = LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8),
+                                                      DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
+
+        LocalDateTime endDate = LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8),
+                                                    DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
+
         if (uris == null && !unique) {
-            return statisticRepository.getStatisticsSummary(start, end);
+            return statisticRepository.getStatisticsSummary(startDate, endDate);
         } else if(uris == null) {
-            return statisticRepository.getStatisticsSummaryUniqueIp(start, end);
+            return statisticRepository.getStatisticsSummaryUniqueIp(startDate, endDate);
         } else if (!unique) {
-            return statisticRepository.getStatisticsSummary(start, end, uris);
+            return statisticRepository.getStatisticsSummary(startDate, endDate, uris);
         } else {
-            return statisticRepository.getStatisticsSummaryUniqueIp(start, end, uris);
+            return statisticRepository.getStatisticsSummaryUniqueIp(startDate, endDate, uris);
         }
     }
 }
