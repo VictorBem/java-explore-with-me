@@ -2,7 +2,6 @@ package ru.practicum.explorewithme.statisticservice;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -19,14 +18,12 @@ import java.util.Map;
 @Slf4j
 public class StatisticClient extends BaseClient {
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    @Value("${explore-with-me-server.url}")
-    private static String serverUrl;
 
     @Autowired
     public StatisticClient(RestTemplateBuilder builder) {
         super(
                 builder
-                        .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
+                        .uriTemplateHandler(new DefaultUriBuilderFactory("${http://localhost:9090}"))
                         .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                         .build()
         );
